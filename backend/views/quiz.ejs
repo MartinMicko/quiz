@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MMA Quiz</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <h1>MMA kokotttt Questions</h1>
+  <ul>
+    <% questions.forEach(q => { %>
+      <li><%= q.question_text %></li>
+    <% }); %>
+  </ul>
+</body>
+</html>
