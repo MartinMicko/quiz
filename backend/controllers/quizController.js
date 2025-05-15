@@ -11,7 +11,7 @@ const pool = new Pool({
 exports.showQuiz = async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM questions');
-    res.render('quiz', { questions: result.rows });
+    res.render('home', { questions: result.rows });
   } catch (err) {
     console.error(err);
     res.status(500).send('Database error');

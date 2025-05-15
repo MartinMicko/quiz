@@ -1,18 +1,39 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 30px;
-  background-color: #f4f4f4;
-}
-h1 {
-  color: #333;
-}
-ul {
-  list-style: none;
-  padding: 0;
-}
-li {
-  background: white;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
-}
+      background-color: #121212;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .navbar, footer {
+      background-color: #1f1f1f !important;
+    }
+    .navbar-brand, .nav-link {
+      color: #f9a825 !important;
+    }
+    .navbar-brand:hover, .nav-link:hover {
+      color: #ffc107 !important;
+    }
+    .hero-section {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #2a2a2a, #121212);
+    }
+    .btn-mma {
+      background-color: #f9a825;
+      color: #121212;
+      font-weight: 700;
+      border-radius: 30px;
+      padding: 1rem 2.5rem;
+      box-shadow: 0 5px 15px rgba(249,168,37,0.6);
+      transition: background-color 0.3s ease;
+    }
+    .btn-mma:hover {
+      background-color: #ffc107;
+      color: #121212;
+    }
