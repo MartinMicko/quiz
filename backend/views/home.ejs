@@ -2,15 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MMA Quiz</title>
-  <link rel="stylesheet" href="/css/styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MMA Quiz Game - Home</title>
+
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Your custom CSS -->
+  <link href="/css/styles.css" rel="stylesheet" />
 </head>
 <body>
-  <h1>MMA kokotttt Questions</h1>
-  <ul>
-    <% questions.forEach(q => { %>
-      <li><%= q.question_text %></li>
-    <% }); %>
-  </ul>
+  <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="/img/logo.png" alt="MMA Logo" width="50" height="50" class="me-2" />
+        <span class="fw-bold fs-4 text-warning">MMA Quiz</span>
+      </a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link text-warning" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-warning" href="/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link text-warning" href="/signup">Sign Up</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section text-center">
+    <h1 class="display-2 fw-bold text-warning mb-4">Welcome to MMA Quiz Game!</h1>
+    <p class="lead fs-5 text-light mb-4 px-3">
+      Test your knowledge across various topics with our fun and challenging quizzes.<br>
+Compete with others, boost your skills, and climb the leaderboard to prove you're the best!
+    </p>
+    <button class="btn btn-mma mt-3" onclick="window.location.href='/quiz'">Start Quiz</button>
+  </section>
+
+  <footer class="text-center text-secondary py-3 mt-auto">
+    &copy; 2025 MMA Quiz Game. All rights reserved.
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
