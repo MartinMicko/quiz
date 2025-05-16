@@ -23,5 +23,16 @@ services:
       DB_NAME: ${DB_NAME}
     restart: unless-stopped
 
+  app:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: npm run dev
+
 volumes:
   db-data:
