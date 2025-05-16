@@ -26,6 +26,5 @@ services:
       DB_NAME: ${DB_NAME}
     restart: unless-stopped
 
-
 volumes:
   db-data:
