@@ -20,6 +20,8 @@ const pool = new Pool({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+
+
 // Serve static files from public/
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
@@ -27,7 +29,9 @@ app.use(express.static('public'));
 
 
 
-app.use(express.urlencoded({ extended: true }));
+
+
+
 
 // Use routes
 app.use('/', quizRoutes);
