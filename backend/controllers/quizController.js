@@ -17,3 +17,7 @@ exports.showQuiz = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
+
+exports.signup = async (req, res) => {
+  res.render('signup.ejs');
+};
