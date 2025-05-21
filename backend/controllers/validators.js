@@ -1,6 +1,6 @@
 
 const { body, validationResult } = require('express-validator');
-const userModel = require('../models/userModel'); // Pre kontrolu existencie
+
 
 const signupValidationRules = () => {
     return [

@@ -28,10 +28,10 @@ exports.login = async (req, res) => {
 
 // backend/controllers/authController.js
 const bcrypt = require('bcryptjs');
-const userModel = require('../userModel');
+
 
 // Funkcia na zobrazenie registračného formulára
-const showSignupForm = (req, res) => {
+exports.showSignupForm = async (req, res) => {
     res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
         title: 'Sign Up',
         errors: [],
@@ -40,7 +40,7 @@ const showSignupForm = (req, res) => {
 };
 
 // Funkcia na spracovanie registrácie
-const registerUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
     // Validácia už prebehla v `validate` middleware
     const { nickname, email, password } = req.body;
 
