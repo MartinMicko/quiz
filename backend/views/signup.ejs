@@ -3,27 +3,63 @@
 
 <%- include('partials/head') %>
 
-<body>
-<%- include('partials/header') %>
+  <body>
 
-  <section class="hero-section text-center">
-    <form action="">
-        <h3>Sign Up Form</h1>
-        <label for="">Nickname</label>
-        <input type="text" name="name" id="name" placeholder="Eneter your nickname" required>
-        <label for="">E-mail</label>
-        <input type="email" name="name" id="name" placeholder="Eneter your nickname" required>
-        <label for="">Password</label>
-        <input type="password" name="name" id="name" placeholder="Eneter your nickname" required>
-        <label for="">Password again</label>
-        <input type="password" name="name" id="name" placeholder="Eneter your nickname" required>
+    <%- include('partials/header') %>
 
-        <button class="btn btn-mma mt-3" onclick="window.location.href='/signup'">Create account</button>
-    </form>
-  </section>
+      <% if (typeof errors !=='undefined' && errors.length> 0) { %>
+        <div class="alert alert-danger">
+          <ul>
+            <% errors.forEach(function(error) { %>
+              <li>
+                <%= error.msg || error %>
+              </li> <!-- express-validator typicky používa error.msg -->
+              <% }); %>
+          </ul>
+        </div>
+        <% } %>
 
-<%- include('partials/footer') %>
-  
-</body>
+          <div class="center">
+            <section class="form-container">
+              <h3 class="text-center mb-4">Sign Up Form</h3>
+              <form action="/signup" method="post">
+
+                <div class="mb-3">
+                  <label for="username" class="form-label">Nickname</label>
+                  <input type="text"
+                    class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.param === 'username')) ? 'is-invalid' : '' %>"
+                    id="username" name="username" placeholder="Enter your username"
+                    value="<%= (typeof formData !== 'undefined' && formData.username) ? formData.username : '' %>"
+                    required>
+                  <% if (typeof errors !=='undefined' && errors.find(e=> e.param === 'username')) { %>
+                    <div class="invalid-feedback">
+                      <%= errors.find(e=> e.param === 'username').msg %>
+                    </div>
+                    <% } %>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                    required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
+                    required>
+                </div>
+                <div class="mb-3">
+                  <label for="confirm_password" class="form-label">Password again</label>
+                  <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                    placeholder="Repeat password" required>
+                </div>
+                <button type="submit" class="btn btn-login w-100">Create account</button>
+              </form>
+            </section>
+          </div>
+
+          <%- include('partials/footer') %>
+
+  </body>
 
 </html>

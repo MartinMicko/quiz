@@ -20,23 +20,27 @@ const pool = new Pool({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+// Middleware pre parsovanie tela požiadavky
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from public/
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 
-
-
-
-
-
-
-
 // Use routes
 app.use('/', quizRoutes);
 // Route: home page renders quiz questions from DB
 
+// Spracovanie chýb (jednoduchý príklad)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).render('error', { // Predpokladá sa, že máš error.ejs
+        title: 'Error',
+        message: err.message || 'Something went wrong!',
+        error: process.env.NODE_ENV === 'development' ? err : {}
+    });
+});
 
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);

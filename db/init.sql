@@ -7,7 +7,7 @@ CREATE TABLE users (
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
-  elo INTEGER DEFAULT 1000,
+  /*v*/ elo INTEGER DEFAULT 1000,
   created_at TIMESTAMP DEFAULT NOW()
 );
 

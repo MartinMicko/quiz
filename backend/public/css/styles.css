@@ -1,5 +1,5 @@
 body {
-  background-color: #121212;
+  background: linear-gradient(135deg, #2a2a2a, #121212);
   color: #eee;
   min-height: 100vh;
   display: flex;
@@ -7,11 +7,13 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.navbar, footer {
+.navbar,
+footer {
   background-color: #1f1f1f !important;
 }
 
-.navbar-brand, .nav-link {
+.navbar-brand,
+.nav-link {
   color: #f9a825 !important;
   font-weight: 600;
   font-size: 1.1rem;
@@ -44,17 +46,78 @@ body {
   background: linear-gradient(135deg, #2a2a2a, #121212);
 }
 
-.btn-mma {
+.btn-mma, .btn-login {
   background-color: #f9a825;
   color: #121212;
   font-weight: 700;
   border-radius: 30px;
   padding: 1rem 2.5rem;
-  box-shadow: 0 5px 15px rgba(249,168,37,0.6);
+
   transition: background-color 0.3s ease;
 }
 
-.btn-mma:hover {
+.btn-mma:hover,
+.btn-login:hover {
   background-color: #ffc107;
   color: #121212;
+}
+
+.btn-login {
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+
+/*SignUp & Login Form*/
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 132px);
+}
+
+.form-container {
+  font-weight: bold;
+  width: 400px;
+  margin: 50px auto;
+  background: linear-gradient(135deg, #2a2a2a, #121212);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255, 165, 0, 0.3);
+}
+
+.form-container h3 {
+  font-weight: bold;
+}
+
+.form-container h3::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 3px;
+  background: #f9a825;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+.form-control {
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  outline: none;
+  background-color: rgba(230, 230, 230, 0.6);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  transition: .3s;
+}
+
+.form-control:hover {
+  background-color: rgba(230, 230, 230, 0.6);
+}
+
+.form-control:focus {
+  background-color: #fff;
+  border: 2px solid #f9a825;
+  box-shadow: none;
 }
