@@ -8,13 +8,4 @@ router.get('/signup', quizController.signup); // tu deklaruješ cestu/endpoint +
 
 
 // Signup page
-router.get('/signup', (req, res) => {
-  res.render('signup');
-});
 
-// Home page
-router.get('/', (req, res) => {
-  res.render('home');
-});
-
-module.exports = router;
