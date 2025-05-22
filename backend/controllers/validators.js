@@ -1,17 +1,24 @@
-
 const { body, validationResult } = require('express-validator');
+const { Pool } = require('pg');
 
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: 5432,
+});
 
 const signupValidationRules = () => {
     return [
-        body('nickname')
+        body('username')
             .trim()
             .notEmpty().withMessage('Nickname is required.')
             .isLength({ min: 3, max: 30 }).withMessage('Nickname must be between 3 and 30 characters.')
             .matches(/^[a-zA-Z0-9_]+$/).withMessage('Nickname can only contain letters, numbers, and underscores.')
             .custom(async (value) => {
-                const user = await userModel.findUserByNickname(value);
-                if (user) {
+                const res = await pool.query('SELECT 1 FROM users WHERE username = $1', [value]);
+                if (res.rowCount > 0) {
                     return Promise.reject('Nickname is already taken.');
                 }
             }),
@@ -21,17 +28,14 @@ const signupValidationRules = () => {
             .isEmail().withMessage('Please enter a valid email address.')
             .normalizeEmail()
             .custom(async (value) => {
-                const user = await userModel.findUserByEmail(value);
-                if (user) {
+                const res = await pool.query('SELECT 1 FROM users WHERE email = $1', [value]);
+                if (res.rowCount > 0) {
                     return Promise.reject('Email address is already in use.');
                 }
             }),
         body('password')
             .notEmpty().withMessage('Password is required.')
             .isLength({ min: 6 }).withMessage('Password must be at least 6 characters long.'),
-            // Môžeš pridať ďalšie pravidlá pre silu hesla (veľké písmeno, číslo, špeciálny znak)
-            // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
-            // .withMessage('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.'),
         body('confirm_password')
             .notEmpty().withMessage('Password confirmation is required.')
             .custom((value, { req }) => {
@@ -50,20 +54,22 @@ const validate = (req, res, next) => {
     }
     const extractedErrors = errors.array().map(err => ({ msg: err.msg, param: err.param }));
 
-    // Ak máš EJS view pre signup
-    return res.status(422).render('signup', { // Uisti sa, že 'signup' je názov tvojho EJS súboru
+    // Render EJS view with errors and form data
+    return res.status(422).render('signup', {
         title: 'Sign Up',
         errors: extractedErrors,
-        formData: { // Pošli späť dáta, aby ich používateľ nemusel znova vypĺňať (okrem hesiel)
+        formData: {
             nickname: req.body.nickname,
             email: req.body.email,
         }
     });
-    // Ak posielaš JSON odpoveď pre API
+
+    // If you want API JSON response instead, comment above and use below:
     // return res.status(422).json({ errors: extractedErrors });
 };
 
 module.exports = {
     signupValidationRules,
     validate,
+    pool, // export if needed elsewhere
 };

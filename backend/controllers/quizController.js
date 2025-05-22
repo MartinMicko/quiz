@@ -39,47 +39,34 @@ exports.showSignupForm = async (req, res) => {
     });
 };
 
-// Funkcia na spracovanie registrácie
+
 exports.registerUser = async (req, res) => {
-    // Validácia už prebehla v `validate` middleware
-    const { nickname, email, password } = req.body;
+    console.log("req.body:", req.body);
 
+    const post = req.body;
+    const nickname = post.username;
+    const email = post.email;
+    const password = post.password;
+    const confirmPassword = post.confirm_password;
+
+    
+
+    // Hashovanie hesla
+    const hashedPassword = await bcrypt.hash(password, 10);
+  
     try {
-        // Hashovanie hesla
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        // Vytvorenie používateľa v databáze
-        const newUser = await userModel.createUser(nickname, email, hashedPassword);
-
-        // Po úspešnej registrácii
-        // Môžeš použiť connect-flash pre správy alebo jednoducho presmerovať
-        // req.flash('success_msg', 'You are now registered and can log in!');
-        res.redirect('/login?registration=success'); // Príklad presmerovania na login
-
-    } catch (error) {
-        // Chyby z modelu (napr. duplicitný email/nickname, ak by neboli chytené validatorom)
-        // alebo iné neočakávané chyby
-        console.error('Error during registration process:', error);
-        const errors = [{ msg: error.message || 'An unexpected error occurred. Please try again.' }];
-        if (error.status === 409) { // Conflict (duplicitné dáta)
-            return res.status(409).render('signup', {
-                title: 'Sign Up',
-                errors: errors,
-                formData: { nickname, email }
-            });
-        }
-
-        // Všeobecná chyba
-        return res.status(500).render('signup', {
-            title: 'Sign Up',
-            errors: [{ msg: 'Server error during registration. Please try again later.' }],
-            formData: { nickname, email }
-        });
+      const result = await pool.query(
+        'INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING *',
+        [nickname, email, hashedPassword]
+      );
+      
+    
+      console.log('User registered:', result.rows[0]);
+      res.redirect('/login');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Database error');
     }
-};
+  };
 
-module.exports = {
-    showSignupForm,
-    registerUser,
-};
+
