@@ -25,17 +25,9 @@
               <form action="/signup" method="post">
 
                 <div class="mb-3">
-                  <label for="username" class="form-label">Nickname</label>
-                  <input type="text"
-                    class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.param === 'username')) ? 'is-invalid' : '' %>"
-                    id="username" name="username" placeholder="Enter your username"
-                    value="<%= (typeof formData !== 'undefined' && formData.username) ? formData.username : '' %>"
+                  <label for="nickname" class="form-label">Nickname</label>
+                  <input type="text" class="form-control" id="nickname" name="username" placeholder="Enter nickname"
                     required>
-                  <% if (typeof errors !=='undefined' && errors.find(e=> e.param === 'username')) { %>
-                    <div class="invalid-feedback">
-                      <%= errors.find(e=> e.param === 'username').msg %>
-                    </div>
-                    <% } %>
                 </div>
 
                 <div class="mb-3">
