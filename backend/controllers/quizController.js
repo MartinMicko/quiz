@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+const bcrypt = require('bcryptjs');
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -26,13 +27,9 @@ exports.login = async (req, res) => {
   res.render('login.ejs');
 };
 
-// backend/controllers/authController.js
-const bcrypt = require('bcryptjs');
-
-
 // Funkcia na zobrazenie registračného formulára
 exports.showSignupForm = async (req, res) => {
-    res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
+    res.render('signup', {
         title: 'Sign Up',
         errors: [],
         formData: {}
@@ -77,9 +74,4 @@ exports.registerUser = async (req, res) => {
             formData: { nickname, email }
         });
     }
-};
-
-module.exports = {
-    showSignupForm,
-    registerUser,
 };
