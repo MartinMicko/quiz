@@ -1,4 +1,8 @@
 const { Pool } = require('pg');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -32,41 +36,100 @@ const bcrypt = require('bcryptjs');
 
 // Funkcia na zobrazenie registračného formulára
 exports.showSignupForm = async (req, res) => {
-    res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
-        title: 'Sign Up',
-        errors: [],
-        formData: {}
-    });
+  res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
+    title: 'Sign Up',
+    errors: [],
+    formData: {}
+  });
 };
 
 
 exports.registerUser = async (req, res) => {
-    console.log("req.body:", req.body);
+  console.log("req.body:", req.body);
 
-    const post = req.body;
-    const nickname = post.username;
-    const email = post.email;
-    const password = post.password;
-    const confirmPassword = post.confirm_password;
+  const post = req.body;
+  const nickname = post.username;
+  const email = post.email;
+  const password = post.password;
+  const confirmPassword = post.confirm_password;
 
-    
 
-    // Hashovanie hesla
-    const hashedPassword = await bcrypt.hash(password, 10);
-  
-    try {
-      const result = await pool.query(
-        'INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING *',
-        [nickname, email, hashedPassword]
-      );
-      
-    
-      console.log('User registered:', result.rows[0]);
-      res.redirect('/login');
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Database error');
+
+  // Hashovanie hesla
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING *',
+      [nickname, email, hashedPassword]
+    );
+
+
+    console.log('User registered:', result.rows[0]);
+    res.redirect('/login');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Database error');
+  }
+};
+
+exports.showloginForm = async (req, res) => {
+  res.render('login', { // Predpokladá sa, že 'login.ejs' je v priečinku 'views'
+    title: 'Login',
+    errors: [],
+    formData: {}
+  });
+};
+
+exports.login = async (req, res) => {
+  console.log('JWT_SECRET ->', JSON.stringify(process.env.JWT_SECRET));
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  try {
+    const result = await pool.query(
+      'SELECT * FROM users WHERE username = $1',
+      [username]
+    );
+
+    const user = result.rows[0];
+    console.log(user);
+
+    if (!user) {
+      return res.status(401).send('Invalid username or password');
     }
-  };
+
+    const passwordMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (!passwordMatch) {
+      return res.status(401).send('Invalid username or password');
+    }
+
+    // Vytvorenie JWT tokenu
+    const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, {
+      expiresIn: 36000 * 24 * 30,
+    });
+
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'strict',
+      maxAge:  360000 * 24 * 30,
+    });
+  }
+    
+
+  catch (err) {
+    console.error(err);
+    res.status(500).send('Database error');
+  }
+};
+
+exports.logout = async (req, res) => {
+  res.clearCookie('jwt');
+  res.redirect('/');
+  console.log('logout');
+};
 
 
