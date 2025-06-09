@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const quizController = require('../controllers/quizController');
-
 const { signupValidationRules, validate } = require('../controllers/validators');
 
 // tu deklaruješ cestu/endpoint + metodu ktoru potom volas v quizController 
@@ -16,7 +15,6 @@ module.exports = router;
 // GET /signup - Zobrazenie registračného formulára
 router.get('/signup', quizController.showSignupForm);
 
-// POST /signup - Spracovanie registrácie
 router.post('/signup', signupValidationRules(), validate, quizController.registerUser);
 
 // POST /login - Spracovanie prihlásenia

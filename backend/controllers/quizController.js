@@ -30,10 +30,6 @@ exports.login = async (req, res) => {
   res.render('login.ejs');
 };
 
-// backend/controllers/authController.js
-const bcrypt = require('bcryptjs');
-
-
 // Funkcia na zobrazenie registračného formulára
 exports.showSignupForm = async (req, res) => {
   res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
