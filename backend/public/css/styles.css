@@ -5,18 +5,57 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 60px;
+  
 }
 
-.navbar,
+.navbar {
+  
+  background-color: #1f1f1f !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* make sure it stays above other elements */
+
+}
+
 footer {
   background-color: #1f1f1f !important;
 }
 
 .navbar-brand,
 .nav-link {
+  position: relative;
   color: #f9a825 !important;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  gap: 25px;
+  font-weight: 100;
+  
+
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: #ffc107;
+  transition: width 0.4s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+}
+
+.nav-link:hover::after {
+  width: 80%;
 }
 
 .navbar-brand img {
@@ -30,10 +69,11 @@ footer {
 .navbar-toggler-icon {
   filter: invert(1);
 }
-
-.nav-link:hover {
-  color: #ffc107 !important;
+.nav-item {
+  margin-right: 20px;
+  font-weight: 700;
 }
+
 
 .hero-section {
   flex-grow: 1;
@@ -46,7 +86,8 @@ footer {
   background: linear-gradient(135deg, #2a2a2a, #121212);
 }
 
-.btn-mma, .btn-login {
+.btn-box,
+.btn-login {
   background-color: #f9a825;
   color: #121212;
   font-weight: 700;
@@ -56,7 +97,7 @@ footer {
   transition: background-color 0.3s ease;
 }
 
-.btn-mma:hover,
+.btn-box:hover,
 .btn-login:hover {
   background-color: #ffc107;
   color: #121212;
@@ -120,4 +161,24 @@ footer {
   background-color: #fff;
   border: 2px solid #f9a825;
   box-shadow: none;
+}
+
+/*scroll bar*/
+/* Applies to entire site */
+::-webkit-scrollbar {
+  width: 9px; /* or height for horizontal scroll */
+}
+
+::-webkit-scrollbar-track {
+  background: #000000; /* light grey track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f9a825; /* thumb color */
+  border-radius: 6px;
+  border: 2px solid #000000; /* adds spacing around thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffc107; /* hover color */
 }
