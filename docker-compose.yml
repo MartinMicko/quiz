@@ -1,3 +1,4 @@
+
 services:
   db:
     build: ./db
@@ -27,6 +28,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION: ${JWT_EXPIRATION}
     restart: unless-stopped
+    
 
 volumes:
   db-data:

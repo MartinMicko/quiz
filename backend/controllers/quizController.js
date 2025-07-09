@@ -1,6 +1,7 @@
 const { Pool } = require('pg');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 
 
@@ -113,6 +114,8 @@ exports.login = async (req, res) => {
       sameSite: 'strict',
       maxAge:  360000 * 24 * 30,
     });
+
+    res.redirect('/');
   }
     
 
