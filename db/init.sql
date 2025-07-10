@@ -7,33 +7,75 @@ CREATE TABLE users (
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
-  /*v*/ elo INTEGER DEFAULT 300,
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE questions (
+CREATE TABLE items (
   id SERIAL PRIMARY KEY,
-  question_text TEXT NOT NULL,
+  name VARCHAR(50) UNIQUE NOT NULL,
+  description TEXT,
+  image TEXT,
+  rarity_id INTEGER REFERENCES rarities(id),
+  category_id INTEGER REFERENCES categories(id),
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE options (
+CREATE TABLE rarities (
   id SERIAL PRIMARY KEY,
-  question_id INTEGER REFERENCES questions(id) ON DELETE CASCADE,
-  option_text TEXT NOT NULL,
-  is_correct BOOLEAN DEFAULT FALSE
+  name VARCHAR(50) UNIQUE NOT NULL,
+  weight INTEGER
 );
 
-CREATE TABLE user_answers (
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE inventory (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  question_id INTEGER REFERENCES questions(id) ON DELETE CASCADE,
-  selected_option_id INTEGER REFERENCES options(id),
-  is_correct BOOLEAN,
-  answered_at TIMESTAMP DEFAULT NOW()
+  item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
+  obtained_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO questions (question_text) VALUES
-('Who is known as The Notorious?'),
-('What year was UFC founded?'),
-('Which fighter holds the record for most title defenses?');
+CREATE TABLE trades (
+  id SERIAL PRIMARY KEY,
+  sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  accepted BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE trade_items (
+  id SERIAL PRIMARY KEY,
+  trade_id INTEGER REFERENCES trades(id) ON DELETE CASCADE,
+  inventory_id INTEGER REFERENCES inventory(id) ON DELETE CASCADE,
+  direction ENUM('sender', 'receiver')
+);
+
+CREATE TABLE daily_boxes (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
+  opened_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE riddles (
+  id SERIAL PRIMARY KEY,
+  task TEXT NOT NULL,
+  solution TEXT NOT NULL
+);
+
+CREATE TABLE user_riddles (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  riddle_id INTEGER REFERENCES riddles(id) ON DELETE CASCADE,
+  completed_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE faq (
+  id SERIAL PRIMARY KEY,
+  question TEXT NOT NULL,
+  answer TEXT NOT NULL
+);
+
