@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 
-
-
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -29,6 +27,14 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   res.render('login.ejs');
+};
+
+exports.support = async (req, res) => {
+  res.render('support.ejs');
+};
+
+exports.about = async (req, res) => {
+  res.render('about.ejs');
 };
 
 // Funkcia na zobrazenie registračného formulára

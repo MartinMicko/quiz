@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/head') %>
+
+<body>
+<%- include('partials/header') %>
+
+  <section class="hero-section text-center">
+    <h1 class="display-2 fw-bold text-warning mb-4">Welcome to What's in the Box?</h1>
+    <p class="lead fs-5 text-light mb-4 px-3">
+      Hey there! We’re two young devs on a mission to bring a little mystery and fun to your day — one box at a time.
+    </p>
+    <p class="lead fs-5 text-light mb-4 px-3">
+      Each day brings a new mystery box — a single image, quietly waiting to be discovered. Some may make you smile, others may make you pause. Each one is a small reminder: even the unexpected has value, if we take a moment to look.
+    </p>
+    
+    <p class="lead fs-5 text-light mb-4 px-3">
+      Some boxes are common. Some are legendary. Some might make you laugh — or question reality. Collect, trade, or just enjoy the chaos. It's your daily dose of "what the heck?"
+    </p>
+    <button class="btn btn-box mt-3" onclick="window.location.href='/open'">Open Today’s Box</button>
+  </section>
+
+  <!-- Cards Section -->
+  <section class="container my-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow rounded-4 bg-dark text-light">
+          <div class="card-body">
+            <h5 class="card-title text-warning">🎯 Rarity-Based Loot</h5>
+            <p class="card-text">
+              Open boxes with items ranging from common trinkets to ultra-rare collectibles. What you get depends on luck!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow rounded-4 bg-dark text-light">
+          <div class="card-body">
+            <h5 class="card-title text-warning">🎨 Cool & Quirky Art</h5>
+            <p class="card-text">
+              Discover original images, mini artworks, memes, and visual surprises that make each box worth opening.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow rounded-4 bg-dark text-light">
+          <div class="card-body">
+            <h5 class="card-title text-warning">🤝 Trade & Flex</h5>
+            <p class="card-text">
+              Join our community to trade items, show off your rarest finds, and see what others have uncovered!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+<%- include('partials/footer') %>
+</body>
+
+</html>
