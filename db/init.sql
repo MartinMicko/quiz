@@ -2,21 +2,13 @@ CREATE DATABASE mmaquiz;
 
 \c mmaquiz
 
+CREATE TYPE "trade_direction" AS ENUM ('sender', 'receiver');
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(50) UNIQUE NOT NULL,
-  description TEXT,
-  image TEXT,
-  rarity_id INTEGER REFERENCES rarities(id),
-  category_id INTEGER REFERENCES categories(id),
   created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -29,6 +21,16 @@ CREATE TABLE rarities (
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) UNIQUE NOT NULL,
+  description TEXT,
+  image TEXT,
+  rarity_id INTEGER REFERENCES rarities(id),
+  category_id INTEGER REFERENCES categories(id),
+  created_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE inventory (
@@ -50,7 +52,7 @@ CREATE TABLE trade_items (
   id SERIAL PRIMARY KEY,
   trade_id INTEGER REFERENCES trades(id) ON DELETE CASCADE,
   inventory_id INTEGER REFERENCES inventory(id) ON DELETE CASCADE,
-  direction ENUM('sender', 'receiver')
+  direction trade_direction
 );
 
 CREATE TABLE daily_boxes (

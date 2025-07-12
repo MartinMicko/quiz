@@ -58,7 +58,7 @@ const validate = (req, res, next) => {
         title: 'Sign Up',
         errors: extractedErrors,
         formData: {
-            nickname: req.body.nickname,
+            username: req.body.username,
             email: req.body.email,
         }
     });
@@ -67,5 +67,5 @@ const validate = (req, res, next) => {
 module.exports = {
     signupValidationRules,
     validate,
-    pool
+    pool,
 };
