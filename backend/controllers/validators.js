@@ -64,8 +64,23 @@ const validate = (req, res, next) => {
     });
 };
 
+const loginValidationRules = () => {
+  return [
+    body('username')
+      .trim()
+      .notEmpty().withMessage('Username is required.'),
+
+    body('password')
+      .notEmpty().withMessage('Password is required.')
+  ];
+};
+
+
+
+
 module.exports = {
     signupValidationRules,
     validate,
+    loginValidationRules,
     pool,
 };
