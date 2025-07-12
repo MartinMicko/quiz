@@ -22,3 +22,6 @@ router.get('/login', quizController.showloginForm);
 
 // GET /logout - Spracovanie odhlásenia
 router.get('/logout', quizController.logout);
+
+// GET /box - Zobrazenie boxu
+router.get('/box', quizController.showBox);

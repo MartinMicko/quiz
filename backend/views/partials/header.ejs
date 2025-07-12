@@ -13,6 +13,19 @@
 
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+  <li class="nav-item"><a class="nav-link text-warning" href="/">Home</a></li>
+
+  <% if (!user) { %>
+    <li class="nav-item"><a class="nav-link text-warning" href="/login">Login</a></li>
+    <li class="nav-item"><a class="nav-link text-warning" href="/signup">Sign Up</a></li>
+  <% } else { %>
+    <li class="nav-item"><a class="nav-link text-warning" href="/logout">Log out</a></li>
+    <li class="nav-item"><a class="nav-link text-warning" href="/box">box</a></li>
+  <% } %>
+  
+
+
+</ul>
         <li class="nav-item"><a class="nav-link text-warning" href="/">Home</a></li>
         <li class="nav-item"><a class="nav-link text-warning" href="/about">About</a></li>
         <li class="nav-item"><a class="nav-link text-warning" href="/support">Support</a></li>
