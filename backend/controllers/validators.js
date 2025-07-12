@@ -54,7 +54,6 @@ const validate = (req, res, next) => {
     }
     const extractedErrors = errors.array().map(err => ({ msg: err.msg, param: err.param }));
 
-    // Render EJS view with errors and form data
     return res.status(422).render('signup', {
         title: 'Sign Up',
         errors: extractedErrors,
@@ -63,13 +62,10 @@ const validate = (req, res, next) => {
             email: req.body.email,
         }
     });
-
-    // If you want API JSON response instead, comment above and use below:
-    // return res.status(422).json({ errors: extractedErrors });
 };
 
 module.exports = {
     signupValidationRules,
     validate,
-    pool, // export if needed elsewhere
+    pool
 };

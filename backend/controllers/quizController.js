@@ -40,7 +40,6 @@ exports.showSignupForm = async (req, res) => {
   });
 };
 
-
 exports.registerUser = async (req, res) => {
   console.log("req.body:", req.body);
 
@@ -49,8 +48,6 @@ exports.registerUser = async (req, res) => {
   const email = post.email;
   const password = post.password;
   const confirmPassword = post.confirm_password;
-
-
 
   // Hashovanie hesla
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -117,7 +114,6 @@ exports.login = async (req, res) => {
 
     res.redirect('/');
   }
-    
 
   catch (err) {
     console.error(err);
