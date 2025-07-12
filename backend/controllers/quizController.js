@@ -14,13 +14,7 @@ const pool = new Pool({
 });
 
 exports.showQuiz = async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM questions');
-    res.render('home', { questions: result.rows });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Database error');
-  }
+  res.render('home.ejs');
 };
 
 exports.signup = async (req, res) => {
@@ -110,8 +104,8 @@ exports.login = async (req, res) => {
 
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'strict',
+      secure: false, // This set "True" in deployment - it uses only https
+      sameSite: 'lax', // Allows navigation → site, blocks CSRF via POST/fetch
       maxAge:  360000 * 24 * 30,
     });
 
@@ -130,5 +124,18 @@ exports.logout = async (req, res) => {
   res.redirect('/');
   console.log('logout');
 };
+
+exports.showBox = async (req, res) => {
+  console.log("USER FROM JWT:", res.locals.user);
+
+  if (!res.locals.user) {
+    return res.redirect('/login');
+  }
+
+  res.render('box.ejs', {
+    user: res.locals.user
+  });
+};
+
 
 

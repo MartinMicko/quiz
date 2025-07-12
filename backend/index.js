@@ -1,25 +1,33 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const { Pool } = require('pg');
-const quizRoutes = require('./routes/quizRoutes');
+const dotenv = require('dotenv');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-require('dotenv').config();
+dotenv.config(); // Load env variables
+
 const app = express();
 const port = process.env.PORT || 4000;
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
+// Middleware: parse cookies
 app.use(cookieParser());
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';
+// Middleware: parse JSON and form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-module.exports = {
-  JWT_SECRET,
-  JWT_EXPIRES_IN,
-};
+// Middleware: custom JWT checker
+const checkAuth = require('./middleware/auth');
+app.use(checkAuth);
 
+// Set EJS as the view engine and views directory
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serve static files from public/
+app.use(express.static(path.join(__dirname, 'public')));
 
 // PostgreSQL pool config
 const pool = new Pool({
@@ -30,32 +38,27 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Set EJS as the view engine and set views directory
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Middleware pre parsovanie tela požiadavky
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Serve static files from public/
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('public'));
-
-// Use routes
-app.use('/', quizRoutes);
-// Route: home page renders quiz questions from DB
-
-// Spracovanie chýb (jednoduchý príklad)
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).render('error', { // Predpokladá sa, že máš error.ejs
-        title: 'Error',
-        message: err.message || 'Something went wrong!',
-        error: process.env.NODE_ENV === 'development' ? err : {}
-    });
+// Attach pool to req if needed in routes (optional)
+app.use((req, res, next) => {
+  req.pool = pool;
+  next();
 });
 
+// Routes
+const quizRoutes = require('./routes/quizRoutes');
+app.use('/', quizRoutes);
+
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).render('error', {
+    title: 'Error',
+    message: err.message || 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err : {},
+  });
+});
+
+// Start server
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
