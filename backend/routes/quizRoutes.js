@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const quizController = require('../controllers/quizController');
+const apiController = require('../controllers/apiController');
 const { signupValidationRules, loginValidationRules, validate } = require('../controllers/validators');
 const redirectIfLoggedIn = require('../middleware/redirectIfLoggedIn');
 
@@ -8,21 +9,19 @@ const redirectIfLoggedIn = require('../middleware/redirectIfLoggedIn');
 router.get('/', quizController.showQuiz);
 
 router.get('/support', quizController.support);
+
 router.get('/about', quizController.about);
 
-module.exports = router;
-
-// GET /signup - Zobrazenie registračného formulára
 router.get('/signup', redirectIfLoggedIn, quizController.showSignupForm);
+
+router.get('/login', redirectIfLoggedIn, quizController.showloginForm);
+
+router.get('/logout', quizController.logout);
+
+router.get('/box', quizController.showBox);
 
 router.post('/signup', redirectIfLoggedIn, signupValidationRules(), validate, quizController.registerUser);
 
-// POST /login - Spracovanie prihlásenia
 router.post('/login', loginValidationRules(), validate, quizController.login);
-router.get('/login', redirectIfLoggedIn, quizController.showloginForm);
 
-// GET /logout - Spracovanie odhlásenia
-router.get('/logout', quizController.logout);
-
-// GET /box - Zobrazenie boxu
-router.get('/box', quizController.showBox);
+module.exports = router;

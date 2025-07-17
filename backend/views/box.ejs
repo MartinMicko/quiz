@@ -6,11 +6,61 @@
 
 <body>
 <%- include('partials/header') %>
+<main class="container text-center py-5">
+  <div class="box-container mt-5">
+    
+    <img id="boxImage" src="/img/logo.png" alt="Mystery Box" class="img-fluid" style="max-width: 300px;" />
 
-  <p>BOOOOOOOOOOOOOOOOOOOOX</p>
-  <p>BOOOOOOOOOOOOOOOOOOOOX</p>
-  <p>BOOOOOOOOOOOOOOOOOOOOX</p>
+    
+    <video id="boxVideo" src="/img/boxopen.mp4" class="img-fluid d-none" style="max-width: 300px;" muted playsinline></video>
 
+    <div class="mt-4">
+      <button id="openBtn" class="btn btn-lg">🎁 Open Your Box</button>
+    </div>
+
+    <div id="result" class="mt-4 fs-4 fw-bold text-light d-none">
+      🎉 You got: <strong id="itemName">Mystic Crystal</strong>!
+    </div>
+  </div>
+</main>
+ <script>
+  const openBtn = document.getElementById('openBtn');
+  const boxImage = document.getElementById('boxImage');
+  const boxVideo = document.getElementById('boxVideo');
+  const result = document.getElementById('result');
+  const itemName = document.getElementById('itemName');
+
+  const items = [
+    "Mystic Crystal", "Cyber Banana", "Rare Cat Figurine",
+    "Glitch Core", "Golden Key", "Nothing (just air)", "Ancient Scroll"
+  ];
+
+  openBtn.addEventListener('click', () => {
+    
+    openBtn.disabled = true;
+    openBtn.innerText = "Opening...";
+
+   
+    boxImage.classList.add("d-none");
+    boxVideo.classList.remove("d-none");
+    boxVideo.play();
+
+    
+    boxVideo.onended = () => showResult();
+    setTimeout(() => {
+      if (boxVideo.paused) showResult(); 
+    }, 4000); 
+  });
+
+  function showResult() {
+    const random = items[Math.floor(Math.random() * items.length)];
+    itemName.textContent = random;
+    result.classList.remove("d-none");
+    openBtn.innerText = "Opened!";
+  }
+</script>
+
+  
 <%- include('partials/footer') %>
 </body>
 
