@@ -43,9 +43,7 @@ function showResult() {
 
     // Hide video, show item image
     boxVideo.classList.add("d-none");
-
-    // Play sound
-    
+                                                                                                                        
 
     // Fill in item content
     const itemImage = document.getElementById("itemImage");
