@@ -25,16 +25,17 @@
 
                             <div class="mb-3">
                                 <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="nickname" name="username"
+                                <input type="text" class="form-control" id="subject" name="subject"
                                     placeholder="Enter a subject" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>
-                                <textarea id="message" class="form-control area" placeholder="Enter a message" required></textarea>
+                                <textarea id="message" name="message" class="form-control area"
+                                    placeholder="Enter a message" required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-form">Send a message</button>
+                            <button type="submit" onclick="sendMail()" class="btn btn-form">Send a message</button>
                         </form>
 
                         <div class="support">
@@ -58,21 +59,29 @@
 
             <%- include('partials/footer') %>
 
-                <script>
-                    const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+                <script src="/js/support.js"></script>
 
-                    accordionItemHeaders.forEach(accordionItemHeader => {
-                        accordionItemHeader.addEventListener("click", event => {
-                            accordionItemHeader.classList.toggle("active");
-                            const accordionItemBody = accordionItemHeader.nextElementSibling;
-                            if (accordionItemHeader.classList.contains("active")) {
-                                accordionItemBody.style.maxHeight = accordionItemBody.scrollHeight + "px";
-                            } else {
-                                accordionItemBody.style.maxHeight = 0;
-                            }
-                        });
-                    });
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
                 </script>
+                <script type="text/javascript">
+                    (function () {
+                        emailjs.init({
+                            publicKey: "ti3nJ8v-dTpiZ997y",
+                        });
+                    })();
+
+                    function sendMail() {
+                        let parms = {
+                            name: document.getElementById("username").value,
+                            email: document.getElementById("email").value,
+                            subject: document.getElementById("subject").value,
+                            message: document.getElementById("message").value,
+                        }
+
+                        emailjs.send("service_3leywx4", "template_56wdmwt", parms).then(alert("Message sent!"));
+                    }
+                </script>
+
     </body>
 
 </html>
