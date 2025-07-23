@@ -6,55 +6,37 @@
 <body>
 <%- include('partials/header') %>
 
-  <section class="hero-section text-center">
-    <h1 class="display-2 fw-bold text-warning mb-4">Welcome to What's in the Box?</h1>
-    <p class="lead fs-5 text-light mb-4 px-3">
-      Hey there! We’re two young devs on a mission to bring a little mystery and fun to your day — one box at a time.
-    </p>
-    <p class="lead fs-5 text-light mb-4 px-3">
-      Each day brings a new mystery box — a single image, quietly waiting to be discovered. Some may make you smile, others may make you pause. Each one is a small reminder: even the unexpected has value, if we take a moment to look.
-    </p>
-    
-    <p class="lead fs-5 text-light mb-4 px-3">
-      Some boxes are common. Some are legendary. Some might make you laugh — or question reality. Collect, trade, or just enjoy the chaos. It's your daily dose of "what the heck?"
-    </p>
-    <button class="btn btn-box mt-3" onclick="window.location.href='/open'">Open Today’s Box</button>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>About What's in the Box?</h1>
+    <p>A simple idea brought to life by two curious friends — one mystery box at a time.</p>
   </section>
 
-  <!-- Cards Section -->
-  <section class="container my-5">
-    <div class="row text-center">
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow rounded-4 bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title text-warning">🎯 Rarity-Based Loot</h5>
-            <p class="card-text">
-              Open boxes with items ranging from common trinkets to ultra-rare collectibles. What you get depends on luck!
-            </p>
-          </div>
-        </div>
+  <!-- About Us Section -->
+  <section class="about-us">
+    <div class="aboutContainer">
+      <img src="./img/Mici_foto.png" alt="The Creators" class="profile-img">
+      <div class="about-text">
+        <h2>Who Are We?</h2>
+        <p>We’re just two friends — part developers, part explorers — who wanted to add a little joy, randomness, and surprise to the internet.
+          Whether it’s a funny image, a thoughtful quote, or something absurdly unexpected, we love building weirdly delightful things.</p>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow rounded-4 bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title text-warning">🎨 Cool & Quirky Art</h5>
-            <p class="card-text">
-              Discover original images, mini artworks, memes, and visual surprises that make each box worth opening.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow rounded-4 bg-dark text-light">
-          <div class="card-body">
-            <h5 class="card-title text-warning">🤝 Trade & Flex</h5>
-            <p class="card-text">
-              Join our community to trade items, show off your rarest finds, and see what others have uncovered!
-            </p>
-          </div>
-        </div>
-      </div>
+      <img src="./img/Majro_foto.png" alt="The Creators" class="profile-img">
     </div>
+  </section>
+
+  <!-- Project Info Section -->
+  <section class="project-info">
+    <h2>What Is This Project?</h2>
+    <p>"What's in the Box?" is a digital mystery experience. Every day, you can open a new box — just one — and find something different.
+      Maybe it's funny. Maybe it's rare. Maybe it's nonsense. But that’s the magic. It’s our small reminder to stay curious, take a moment, and embrace the unexpected.</p>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>Join the Fun</h2>
+    <p>Check back daily, see what you get, and share the chaos. One box. Endless possibilities.</p>
+    <a href="/box" class="cta-button">Let’s do it!</a>
   </section>
   
 

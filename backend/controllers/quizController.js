@@ -31,7 +31,7 @@ exports.about = async (req, res) => {
   res.render('about.ejs');
 };
 
-// Funkcia na zobrazenie registračného formulára
+// --> Function to show the signup form <-- //
 exports.showSignupForm = async (req, res) => {
   res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
     title: 'Sign Up',
@@ -40,6 +40,7 @@ exports.showSignupForm = async (req, res) => {
   });
 };
 
+// --> Function to register a new user  <-- //
 exports.registerUser = async (req, res) => {
   console.log("req.body:", req.body);
 
@@ -49,7 +50,7 @@ exports.registerUser = async (req, res) => {
   const password = post.password;
   const confirmPassword = post.confirm_password;
 
-  // Hashovanie hesla
+  // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
@@ -67,6 +68,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
+// --> Function to show the login form <-- //
 exports.showloginForm = async (req, res) => {
   res.render('login', { // Predpokladá sa, že 'login.ejs' je v priečinku 'views'
     title: 'Login',
@@ -75,6 +77,7 @@ exports.showloginForm = async (req, res) => {
   });
 };
 
+// --> Function to login a user <-- //
 exports.login = async (req, res) => {
   console.log('JWT_SECRET ->', JSON.stringify(process.env.JWT_SECRET));
 
@@ -121,12 +124,14 @@ exports.login = async (req, res) => {
   }
 };
 
+// --> Function to logout a user <-- //
 exports.logout = async (req, res) => {
   res.clearCookie('jwt');
   res.redirect('/');
   console.log('logout');
 };
 
+// --> Function to show the box <-- //
 exports.showBox = async (req, res) => {
   console.log("USER FROM JWT:", res.locals.user);
 

@@ -1,17 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <%- include('partials/head') %>
 
-<body>
-<%- include('partials/header') %>
+  <body>
+    <%- include('partials/header') %>
+      <main class="container text-center py-5">
+        <div class="box-container mt-5">
 
-  <p>BOOOOOOOOOOOOOOOOOOOOX</p>
-  <p>BOOOOOOOOOOOOOOOOOOOOX</p>
-  <p>BOOOOOOOOOOOOOOOOOOOOX</p>
+          <img id="boxImage" src="/img/logo.png" alt="Mystery Box" class="img-fluid" style="max-width: 300px;" />
 
-<%- include('partials/footer') %>
-</body>
+
+          <video id="boxVideo" src="/img/boxopen.mp4" class="img-fluid d-none" style="max-width: 300px;" muted
+            playsinline></video>
+
+          <div class="mt-4">
+            <button id="openBtn" class="btn btn-lg">🎁 Open Your Box</button>
+          </div>
+
+          <div id="result" class="mt-5 d-none">
+            <div id="itemReveal"
+              class="reveal-card d-flex flex-column flex-md-row align-items-center text-light p-4 rounded shadow gap-4">
+
+              <div class="flex-shrink-0">
+                <img id="itemImage" src="" alt="Item Image" class="item-img rounded" />
+              </div>
+
+              <div class="flex-grow-1">
+                <h3 class="item-name fw-bold mb-2">🎉 You got: <span id="itemName"></span>!</h3>
+                <p id="itemDescription" class="item-desc mb-3"></p>
+                <div id="itemRarity" class="rarity-badge"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+      <audio id="boxSound" src="/img/boxopensfx.mp3" preload="auto"></audio>
+
+      <script src="/scripts/boxLogic.js"></script>
+
+
+      <%- include('partials/footer') %>
+  </body>
 
 </html>

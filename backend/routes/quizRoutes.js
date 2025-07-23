@@ -1,27 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const quizController = require('../controllers/quizController');
+const apiController = require('../controllers/apiController');
 const { signupValidationRules, loginValidationRules, validate } = require('../controllers/validators');
+const redirectIfLoggedIn = require('../middleware/redirectIfLoggedIn');
 
 // tu deklaruješ cestu/endpoint + metodu ktoru potom volas v quizController 
 router.get('/', quizController.showQuiz);
-router.get('/signup', quizController.signup); 
+
 router.get('/support', quizController.support);
+
 router.get('/about', quizController.about);
 
-module.exports = router;
+router.get('/signup', redirectIfLoggedIn, quizController.showSignupForm);
 
-// GET /signup - Zobrazenie registračného formulára
-router.get('/signup', quizController.showSignupForm);
+router.get('/login', redirectIfLoggedIn, quizController.showloginForm);
 
-router.post('/signup', signupValidationRules(), validate, quizController.registerUser);
-
-// POST /login - Spracovanie prihlásenia
-router.post('/login', loginValidationRules(), validate, quizController.login);
-router.get('/login', quizController.showloginForm);
-
-// GET /logout - Spracovanie odhlásenia
 router.get('/logout', quizController.logout);
 
-// GET /box - Zobrazenie boxu
 router.get('/box', quizController.showBox);
+
+router.post('/signup', redirectIfLoggedIn, signupValidationRules(), validate, quizController.registerUser);
+
+router.post('/login', loginValidationRules(), validate, quizController.login);
+
+module.exports = router;
