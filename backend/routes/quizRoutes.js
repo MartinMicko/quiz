@@ -12,9 +12,11 @@ router.get('/support', quizController.support);
 
 router.get('/about', quizController.about);
 
+router.get('/admin', quizController.admin);
+
 router.get('/signup', redirectIfLoggedIn, quizController.showSignupForm);
 
-router.get('/login', redirectIfLoggedIn, quizController.showloginForm);
+router.get('/login', redirectIfLoggedIn, quizController.showLoginForm);
 
 router.get('/logout', quizController.logout);
 

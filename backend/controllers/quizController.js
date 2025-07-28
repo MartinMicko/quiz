@@ -31,6 +31,10 @@ exports.about = async (req, res) => {
   res.render('about.ejs');
 };
 
+exports.admin = async (req, res) => {
+  res.render('admin.ejs');
+};
+
 // --> Function to show the signup form <-- //
 exports.showSignupForm = async (req, res) => {
   res.render('signup', { // Predpokladá sa, že 'signup.ejs' je v priečinku 'views'
@@ -69,7 +73,7 @@ exports.registerUser = async (req, res) => {
 };
 
 // --> Function to show the login form <-- //
-exports.showloginForm = async (req, res) => {
+exports.showLoginForm = async (req, res) => {
   res.render('login', { // Predpokladá sa, že 'login.ejs' je v priečinku 'views'
     title: 'Login',
     errors: [],
