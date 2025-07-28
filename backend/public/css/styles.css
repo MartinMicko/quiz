@@ -81,7 +81,7 @@ footer {
   background: linear-gradient(135deg, #2a2a2a, #121212);
 }
 
-.btn{
+.btn {
   background-color: #f9a825;
   color: #121212;
   font-weight: 700;
@@ -93,11 +93,11 @@ footer {
   transition: background-color 0.3s ease;
 }
 
-.btn-form{
+.btn-form {
   width: 100%;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: #ffc107;
   color: #121212;
 }
@@ -120,13 +120,15 @@ footer {
   box-shadow: 0 0 30px rgba(255, 165, 0, 0.3);
 }
 
-.form-container h3, .support-container h3 {
+.form-container h3,
+.support-container h3, .adminForm h3 {
   margin-bottom: 20px;
   text-align: center;
   font-weight: bold;
 }
 
-.form-container h3::after, .support-container h3::after {
+.form-container h3::after,
+.support-container h3::after, .adminForm h3::after {
   content: "";
   display: block;
   width: 120px;
@@ -183,7 +185,7 @@ footer {
 }
 
 /*contact*/
-.support-container {
+.support-container{
   position: relative;
   display: flex;
   justify-content: center;
@@ -337,17 +339,37 @@ textarea.form-control {
   font-size: 0.95rem;
 }
 
-.rarity-common    { background-color: #6c757d; color: white; }
-.rarity-uncommon  { background-color: #28a745; color: white; }
-.rarity-rare      { background-color: #007bff; color: white; }
-.rarity-epic      { background-color: #6f42c1; color: white; }
-.rarity-legendary { background-color: #fd7e14; color: white; }
+.rarity-common {
+  background-color: #6c757d;
+  color: white;
+}
+
+.rarity-uncommon {
+  background-color: #28a745;
+  color: white;
+}
+
+.rarity-rare {
+  background-color: #007bff;
+  color: white;
+}
+
+.rarity-epic {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.rarity-legendary {
+  background-color: #fd7e14;
+  color: white;
+}
 
 @keyframes pop-in {
   from {
     transform: scale(0.9);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -367,7 +389,8 @@ textarea.form-control {
 
 .hero h1 {
   font-size: 3rem;
-  color: #f9a825; /* Yellow */
+  color: #f9a825;
+  /* Yellow */
   margin-bottom: 20px;
 }
 
@@ -410,6 +433,7 @@ textarea.form-control {
   color: #f9a825;
   margin-bottom: 16px;
 }
+
 .about-text p {
   text-align: center;
 }
@@ -477,66 +501,6 @@ textarea.form-control {
   }
 }
 
-/* Admin */
-.adminForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.admin-form {
-  border-top: 5px solid #ff523b;
-  color: black;
-  text-align: center;
-  background-color: white;
-  box-shadow: 0 30px 60px 0 rgba(68, 114, 170, 0.4);
-  max-width: 500px;
-  border-radius: 20px;
-  padding: 30px;
-}
-
-.admin h1 {
-  color: black;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.title {
-  margin-bottom: 20px;
-}
-
-.title h1::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: #ff523b;
-  margin: 8px auto;
-}
-
-.admin label {
-  float: left;
-  margin-top: 15px;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.admin input,
-.admin select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: solid 2px black;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-select:focus,
-input:focus {
-  outline: none;
-  border-color: #ff523b;
-}
-
 /* Modal */
 .modal {
   position: fixed;
@@ -544,7 +508,7 @@ input:focus {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* stmavené pozadie */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -585,6 +549,32 @@ input:focus {
 }
 
 .modal-content p {
-    margin: 10px;
+  margin: 10px;
+}
+
+/*Admin*/
+.adminContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 116px);
+}
+
+.adminWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  padding: 0 60px;
+}
+
+.adminForm{
+  font-weight: bold;
+  padding: 25px 40px;
+  border-radius: 15px;
+  height: 650px;
+  border: solid 2px #f9a825;
 }
 

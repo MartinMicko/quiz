@@ -8,7 +8,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     restart: unless-stopped
 
   backend:
@@ -17,7 +17,7 @@ services:
       - ./backend:/app
       - /app/node_modules
     ports:
-      - "5000:4000"
+      - "5001:4000"
     depends_on:
       - db
     environment:
